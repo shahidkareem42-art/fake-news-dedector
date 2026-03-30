@@ -26,17 +26,25 @@ model = LogisticRegression()
 model.fit(X, y)
 
 # UI
-st.title("📰 Fake News Detector")
+st.set_page_config(page_title="Fake News Detector", page_icon="📰")
 
-news = st.text_input("Enter News")
+st.title("📰 Fake News Detector")
+st.markdown("### Check whether a news is **Real or Fake**")
+
+user_input = st.text_area("Enter News Here")
 
 if st.button("Predict"):
-    if news:
-        cleaned = clean_text(news)
-        vec = vectorizer.transform([cleaned])
-        pred = model.predict(vec)
+    if user_input.strip() == "":
+        st.warning("⚠️ Please enter some text")
+    else:
+        with st.spinner("Analyzing news..."):
+            transformed_input = vectorizer.transform([user_input])
+            prediction = model.predict(transformed_input)[0]
 
-        if pred[0] == "REAL":
-            st.success("🟢 This news is REAL")
+        if prediction == "FAKE" or prediction == 0:
+            st.error("🚨 This news is FAKE")
         else:
-            st.error("🔴 This news is FAKE")
+            st.success("✅ This news is REAL")
+
+st.markdown("---")
+st.caption("Built by Shahid Kareem 🚀")
