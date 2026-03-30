@@ -19,3 +19,6 @@ Achieved ~91% accuracy
 
 ## Conclusion
 This project classifies news articles as real or fake based on textual patterns.
+
+## application
+https://fake-news-dedector-gytaz6pdlzfppyerhew58i.streamlit.app/
